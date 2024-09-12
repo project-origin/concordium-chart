@@ -11,7 +11,7 @@ jobs:
   publish-chart:
     needs:
       - define-version
-    uses: project-origin/.github/.github/workflows/reusable-publish-chart.yaml@f02620f44558ae015a17e217a2064d61dda1185d
+    uses: project-origin/.github/.github/workflows/reusable-publish-chart.yaml@e750eb7a7b7a59893e03027807dcab07601239cd
     with:
       version: ${{ needs.define-version.outputs.version }}
       chart_folder: chart
