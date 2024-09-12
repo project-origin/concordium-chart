@@ -1,0 +1,21 @@
+{
+	"image": "mcr.microsoft.com/devcontainers/base:bullseye",
+    "features": {
+        "ghcr.io/devcontainers/features/docker-in-docker:2": {},
+        "ghcr.io/mpriscella/features/kind:1": {},
+        "ghcr.io/devcontainers/features/kubectl-helm-minikube:1": {}
+    },
+    "postCreateCommand": "helm plugin install https://github.com/helm-unittest/helm-unittest.git && make restore",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "EditorConfig.EditorConfig",
+                "ms-vscode.makefile-tools"
+            ],
+            "settings": {
+                "editor.formatOnSave": true
+            }
+        }
+    },
+    "remoteUser": "vscode"
+}
