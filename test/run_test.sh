@@ -15,6 +15,7 @@ cleanup() {
 
 # define debug function
 debug() {
+    echo -e "\n\nTest failed ❌"
     echo -e "\nDebugging information:"
     echo -e "\nHelm list:"
     helm list --kube-context ${cluster_context_name}
@@ -35,4 +36,6 @@ kind create cluster -n ${cluster_name}
 helm install ${install_name} chart --set network=mainnet,collector.enabled=false --kube-context ${cluster_context_name} --wait
 
 # wait for the statefulset to be available
-kubectl wait --for=condition=Ready pod/${install_name}-0 --timeout=120s --context ${cluster_context_name}
+kubectl wait --for=condition=available deployment/${install_name} --timeout=120s --context ${cluster_context_name}
+
+echo -e "\nTest completed successfully ✅\n"

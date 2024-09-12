@@ -4,19 +4,18 @@
 {{- end }}
 {{ $registry := .Values.global.imageRegistry | default .Values.image.registry }}
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
   name: {{ .Release.Name }}
   labels:
     app: {{ .Release.Name }}
 spec:
   replicas: 1
-  serviceName: {{ .Release.Name }}
   selector:
     matchLabels:
       app: {{ .Release.Name }}
-  updateStrategy:
-    type: RollingUpdate
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels:
@@ -109,7 +108,7 @@ spec:
               value: "-N2,-I0"
           {{- if .Values.persistence.enabled }}
           volumeMounts:
-            - name: {{ .Values.persistence.name }}
+            - name: data
               mountPath: /mnt/data
           {{- end }}
 
@@ -143,17 +142,25 @@ spec:
               value: http://localhost:20000
       {{- end }}
 
-  {{- if .Values.persistence.enabled }}
-  volumeClaimTemplates:
-    - metadata:
-        name: {{ .Values.persistence.name }}
-      spec:
-        accessModes:
-          - {{ .Values.persistence.accessMode | quote }}
-      {{- if hasKey .Values.persistence "storageClass" }}
-        storageClassName: {{ .Values.persistence.storageClass | quote }}
-      {{- end }}
-        resources:
-          requests:
-            storage: {{ .Values.persistence.size | quote }}
+      volumes:
+        {{- if .Values.persistence.enabled }}
+        - name: data
+          persistentVolumeClaim:
+            claimName: {{ .Values.persistence.name }}
+        {{- end }}
+---
+{{- if .Values.persistence.enabled }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Values.persistence.name }}
+spec:
+  {{- if hasKey .Values.persistence "storageClass" }}
+  storageClassName: {{ .Values.persistence.storageClass | quote }}
   {{- end }}
+  accessModes:
+    - {{ .Values.persistence.accessMode | quote }}
+  resources:
+    requests:
+      storage: {{ .Values.persistence.size | quote }}
+{{- end }}

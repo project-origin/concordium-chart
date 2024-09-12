@@ -45,7 +45,7 @@ persistence:
   # enabled specifies if the node should use persistent storage or not.
   enabled: true
   # name is the name of the persistent volume claim
-  name: po-concordium-data
+  name: concordium-data
   # storageClass is the name of the storage class to use, if not specified the default storage class will be used.
   #storageClass:
   # accessMode is the access mode to use for the persistent volume claim, allowed values are (ReadWriteOnce | ReadWriteMany)
