@@ -1,0 +1,13 @@
+name: Verifies PR are ready for merge
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  verify-devcontainer:
+    uses: project-origin/.github/.github/workflows/reusable-verify-devcontainer.yaml@b1a1034591b6f491085a0d9d259ae3b486487701
+
+  verify-chart:
+    uses: project-origin/.github/.github/workflows/reusable-verify-chart.yaml@b1a1034591b6f491085a0d9d259ae3b486487701
