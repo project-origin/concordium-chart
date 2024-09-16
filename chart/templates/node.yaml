@@ -106,6 +106,17 @@ spec:
             # which reduces CPU load for non-baking nodes.
             - name: CONCORDIUM_NODE_RUNTIME_HASKELL_RTS_FLAGS
               value: "-N2,-I0"
+
+            {{- if .Values.metrics.port }}
+            - name: CONCORDIUM_NODE_PROMETHEUS_LISTEN_PORT
+              value: {{ .Values.metrics.port | quote }}
+            {{- end }}
+
+            {{- if .Values.persistence.address }}
+            - name: CONCORDIUM_NODE_PROMETHEUS_LISTEN_ADDRESS
+              value: {{ .Values.persistence.address | quote }}
+            {{- end }}
+
           {{- if .Values.persistence.enabled }}
           volumeMounts:
             - name: data

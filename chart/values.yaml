@@ -34,6 +34,8 @@ resources:
 service:
   # type is the type of service to create, allowed values are (ClusterIP | NodePort | LoadBalancer)
   type: ClusterIP
+  # port is the port to expose the service on
+  port: 20000
   # nodePort is the port to expose the service on if type is NodePort
   nodePort:
 
@@ -61,3 +63,10 @@ collector:
   nodeName:
   # interval describes how often to collect the statistics from the node, in milliseconds
   interval: 5000
+
+# metrics holds the configuration for the metrics endpoint to expose
+metrics:
+  # port configures the port to run the Prometheus exporter on, it does not run the exporter by default, the port must be set to enable it.
+  port:
+  # address specifies the IP address to listen on, defaults to 127.0.0.1
+  address:
