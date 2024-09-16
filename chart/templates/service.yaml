@@ -10,7 +10,7 @@ spec:
   ports:
     - name: grpc
       protocol: TCP
-      port: {{ .Values.service.port }}
+      port: {{ .Values.service.port }}
       targetPort: 20000
     {{- if .Values.metrics.port }}
     - name: metrics
