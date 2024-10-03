@@ -19,6 +19,3 @@ verify-chart:
 	@helm version >/dev/null 2>&1 || { echo >&2 "helm not installed! helm is required to use recipe, please install or use devcontainer"; exit 1;}
 	helm unittest chart
 	./test/run_test.sh
-
-restore:
-	@docker-compose pull
