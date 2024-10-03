@@ -1,0 +1,24 @@
+﻿suite: "Test CPU and Memory Limits in Node Deployment"
+
+templates:
+  - "node.yaml"
+
+tests:
+  - it: "should correctly template CPU and memory limits"
+    set:
+      resources.limits.cpu: "500m"
+      resources.limits.memory: "1024Mi"
+      resources.requests.cpu: "250m"
+      resources.requests.memory: "512Mi"
+    asserts:
+      - isKind:
+          of: Deployment
+      - contains:
+          path: spec.template.spec.containers[0].resources
+          value:
+            limits:
+              cpu: "500m"
+              memory: "1024Mi"
+            requests:
+              cpu: "250m"
+              memory: "512Mi"

@@ -5,7 +5,7 @@
         "ghcr.io/mpriscella/features/kind:1": {},
         "ghcr.io/devcontainers/features/kubectl-helm-minikube:1": {}
     },
-    "postCreateCommand": "helm plugin install https://github.com/helm-unittest/helm-unittest.git && make restore",
+    "postCreateCommand": "helm plugin install https://github.com/helm-unittest/helm-unittest.git",
     "customizations": {
         "vscode": {
             "extensions": [
