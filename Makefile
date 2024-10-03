@@ -21,4 +21,4 @@ verify-chart:
 	./test/run_test.sh
 
 restore:
-	@dotnet restore
+	@docker-compose pull
